@@ -19,43 +19,43 @@ import java.util.Optional;
 class EmployeeController {
 
     private final Logger log = LoggerFactory.getLogger(EmployeeController.class);
-    private EmployeeRepository groupRepository;
+    private EmployeeRepository employeeRepository;
 
-    public EmployeeController(EmployeeRepository groupRepository) {
-        this.groupRepository = groupRepository;
+    public EmployeeController(EmployeeRepository employeeRepository) {
+        this.employeeRepository = employeeRepository;
     }
 
-    @GetMapping("/groups")
+    @GetMapping("/employees")
     Collection<Employee> groups() {
-        return groupRepository.findAll();
+        return employeeRepository.findAll();
     }
 
-    @GetMapping("/group/{id}")
-    ResponseEntity<?> getGroup(@PathVariable Long id) {
-        Optional<Employee> group = groupRepository.findById(id);
-        return group.map(response -> ResponseEntity.ok().body(response))
+    @GetMapping("/employee/{id}")
+    ResponseEntity<?> getEmployee(@PathVariable Long id) {
+        Optional<Employee> employee = employeeRepository.findById(id);
+        return employee.map(response -> ResponseEntity.ok().body(response))
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    @PostMapping("/group")
-    ResponseEntity<Employee> createGroup(@Valid @RequestBody Employee group) throws URISyntaxException {
-        log.info("Request to create group: {}", group);
-        Employee result = groupRepository.save(group);
-        return ResponseEntity.created(new URI("/api/group/" + result.getId()))
+    @PostMapping("/employee")
+    ResponseEntity<Employee> createEmployee(@Valid @RequestBody Employee employee) throws URISyntaxException {
+        log.info("Request to create employee: {}", employee);
+        Employee result = employeeRepository.save(employee);
+        return ResponseEntity.created(new URI("/api/employee/" + result.getId()))
                 .body(result);
     }
 
-    @PutMapping("/group/{id}")
-    ResponseEntity<Employee> updateGroup(@Valid @RequestBody Employee group) {
-        log.info("Request to update group: {}", group);
-        Employee result = groupRepository.save(group);
+    @PutMapping("/employee/{id}")
+    ResponseEntity<Employee> updateEmployee(@Valid @RequestBody Employee employee) {
+        log.info("Request to update employee: {}", employee);
+        Employee result = employeeRepository.save(employee);
         return ResponseEntity.ok().body(result);
     }
 
-    @DeleteMapping("/group/{id}")
-    public ResponseEntity<?> deleteGroup(@PathVariable Long id) {
-        log.info("Request to delete group: {}", id);
-        groupRepository.deleteById(id);
+    @DeleteMapping("/employee/{id}")
+    public ResponseEntity<?> deleteEmployee(@PathVariable Long id) {
+        log.info("Request to delete employee: {}", id);
+        employeeRepository.deleteById(id);
         return ResponseEntity.ok().build();
     }
 }
