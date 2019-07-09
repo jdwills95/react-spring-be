@@ -37,7 +37,7 @@ class EmployeeController {
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    @PostMapping("/employee")
+    @PostMapping("/employee/{id}")
     ResponseEntity<Employee> createEmployee(@Valid @RequestBody Employee employee) throws URISyntaxException {
         log.info("Request to create employee: {}", employee);
         Employee result = employeeRepository.save(employee);
