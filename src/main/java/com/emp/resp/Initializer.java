@@ -1,6 +1,6 @@
 package com.emp.resp;
 
-import com.emp.resp.model.Event;
+
 import com.emp.resp.model.Employee;
 import com.emp.resp.model.EmployeeRepository;
 import org.springframework.boot.CommandLineRunner;
@@ -26,13 +26,13 @@ class Initializer implements CommandLineRunner {
                 repository.save(new Employee(name))
         );
 
-        Employee djug = repository.findByName("Denver JUG");
+        /*Employee djug = repository.findByName("Denver JUG");
         Event e = Event.builder().title("Full Stack Reactive")
                 .description("Reactive with Spring Boot + React")
                 .date(Instant.parse("2018-12-12T18:00:00.000Z"))
                 .build();
         djug.setEvents(Collections.singleton(e));
-        repository.save(djug);
+        repository.save(djug);*/
 
         repository.findAll().forEach(System.out::println);
     }
