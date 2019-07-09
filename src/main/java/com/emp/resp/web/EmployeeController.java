@@ -26,7 +26,7 @@ class EmployeeController {
     }
 
     @GetMapping("/employees")
-    Collection<Employee> groups() {
+    Collection<Employee> employees() {
         return employeeRepository.findAll();
     }
 
