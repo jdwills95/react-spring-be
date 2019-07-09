@@ -1,7 +1,7 @@
 package com.emp.resp.web;
 
-import com.emp.resp.model.Group;
-import com.emp.resp.model.GroupRepository;
+import com.emp.resp.model.Employee;
+import com.emp.resp.model.EmployeeRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -16,39 +16,39 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api")
-class GroupController {
+class EmployeeController {
 
-    private final Logger log = LoggerFactory.getLogger(GroupController.class);
-    private GroupRepository groupRepository;
+    private final Logger log = LoggerFactory.getLogger(EmployeeController.class);
+    private EmployeeRepository groupRepository;
 
-    public GroupController(GroupRepository groupRepository) {
+    public EmployeeController(EmployeeRepository groupRepository) {
         this.groupRepository = groupRepository;
     }
 
     @GetMapping("/groups")
-    Collection<Group> groups() {
+    Collection<Employee> groups() {
         return groupRepository.findAll();
     }
 
     @GetMapping("/group/{id}")
     ResponseEntity<?> getGroup(@PathVariable Long id) {
-        Optional<Group> group = groupRepository.findById(id);
+        Optional<Employee> group = groupRepository.findById(id);
         return group.map(response -> ResponseEntity.ok().body(response))
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
     @PostMapping("/group")
-    ResponseEntity<Group> createGroup(@Valid @RequestBody Group group) throws URISyntaxException {
+    ResponseEntity<Employee> createGroup(@Valid @RequestBody Employee group) throws URISyntaxException {
         log.info("Request to create group: {}", group);
-        Group result = groupRepository.save(group);
+        Employee result = groupRepository.save(group);
         return ResponseEntity.created(new URI("/api/group/" + result.getId()))
                 .body(result);
     }
 
     @PutMapping("/group/{id}")
-    ResponseEntity<Group> updateGroup(@Valid @RequestBody Group group) {
+    ResponseEntity<Employee> updateGroup(@Valid @RequestBody Employee group) {
         log.info("Request to update group: {}", group);
-        Group result = groupRepository.save(group);
+        Employee result = groupRepository.save(group);
         return ResponseEntity.ok().body(result);
     }
 
