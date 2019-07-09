@@ -11,9 +11,10 @@ import java.util.Collections;
 import java.util.stream.Stream;
 
 @Component
+abstract
 class Initializer implements CommandLineRunner {
 
-    private final EmployeeRepository repository;
+    /*private final EmployeeRepository repository;
 
     public Initializer(EmployeeRepository repository) {
         this.repository = repository;
@@ -22,10 +23,10 @@ class Initializer implements CommandLineRunner {
     @Override
     public void run(String... strings) {
         Stream.of("Denver JUG", "Utah JUG", "Seattle JUG",
-                "Richmond JUG").forEach(name ->
-                repository.save(new Employee(name))
+                "Richmond JUG").forEach(fName ->
+                repository.save(new Employee(fName))
         );
 
         repository.findAll().forEach(System.out::println);
-    }
+    }*/
 }
